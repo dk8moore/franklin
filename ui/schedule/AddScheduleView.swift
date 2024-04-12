@@ -100,7 +100,7 @@ struct AddScheduleView: View {
                     .onDelete(perform: deleteCondition)
                     
                     Button(action: {
-                        self.showingSheet = true // 2. Set this to true to show the sheet
+                        self.showingSheet = true
                     }) {
                         HStack {
                             Image(systemName: "plus.circle.fill")
@@ -113,17 +113,7 @@ struct AddScheduleView: View {
                     AddConditionView() // Replace with your actual view that should appear in the sheet
                 }
                 
-                // Here will be just the insertion of a temporal limit for all the blocked apps (e.g. 10 minutes,
-                // 30 minutes, 1h, 2h, all considered per day). This will be just a simple insertion of this temporal value (one value) from 5 minutes to potentially hours (let's limit it at 2h), each value that can be inserted can be just a multiple of 5 minutes
-//                Section(header: Text("USAGE LIMITS")) {
-//                    Picker("Limit Duration", selection: $limitDuration) {
-//                        ForEach(1...24, id: \.self) { index in // Covers 5 minutes to 2 hours in 5-minute increments
-//                            let minutes = index * 5
-//                            Text("\(minutes) minutes").tag(minutes)
-//                        }
-//                    }
-//                }
-                
+               
                 // Here will be just the insertion of a number for the money to be calculated every tot
                 // seconds/multiples/minutes after the set limits => so a value for the money and a value
                 // for the period of time at which the money value will be deducted
@@ -140,6 +130,8 @@ struct AddScheduleView: View {
 //                }
 
             }
+            .navigationTitle("New Schedule")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
                 leading: Button("Cancel") { stateManager.toggleScheduleSheet() },
                 trailing: Button("Save") { /* action */ }

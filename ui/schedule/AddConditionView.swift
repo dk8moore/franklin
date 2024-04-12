@@ -18,7 +18,7 @@ struct AddConditionView: View {
             List {
                 Section(header: Text("Set a Condition"), footer: Text("Have this Schedule turn on automatically at a set time or location.")) {
                     NavigationLink { 
-                        AddScheduleView()
+                        TimeConditionView()
                     } label: {
                             Label {
                                 VStack(alignment: .leading) {
@@ -33,7 +33,7 @@ struct AddConditionView: View {
                     }
                     
                     NavigationLink {
-                        AddScheduleView()
+                        LocationConditionView()
                     } label: {
                             Label {
                                 VStack(alignment: .leading) {
@@ -70,20 +70,6 @@ struct CustomLabelStyle: LabelStyle {
         .padding(.vertical, 1)
     }
 }
-
-//// Placeholder style extension for TextFields
-//extension View {
-//    func placeholder<Content: View>(
-//        when shouldShow: Bool,
-//        alignment: Alignment = .leading,
-//        @ViewBuilder placeholder: () -> Content
-//    ) -> some View {
-//        ZStack(alignment: alignment) {
-//            placeholder().opacity(shouldShow ? 1 : 0)
-//            self
-//        }
-//    }
-//}
 
 struct AddConditionView_Previews: PreviewProvider {
     static var previews: some View {
