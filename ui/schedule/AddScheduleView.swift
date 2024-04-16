@@ -18,8 +18,10 @@ struct AddScheduleView: View {
     @State private var selectedTime = Date()
     @State private var conditions: [String] = []
     @State private var showDatePicker = false
+    @State private var showMoneyPicker = false
     @State private var setTimeText = "Set"
     @State private var showingSheet = false;
+    @State private var feeAmount = ""
     
     
     @EnvironmentObject var stateManager: StateManager
@@ -62,7 +64,7 @@ struct AddScheduleView: View {
                     .onTapGesture {
                         isPickerPresented = true
                     }
-                    .familyActivityPicker(headerText: "Prova a scrivere", footerText: "Prova a scrivere ma stavolta sotto", isPresented: $isPickerPresented, selection: $selection)
+                    .familyActivityPicker(headerText: "ALL APPLICATIONS", footerText: "Select the apps or categories you want to lock.", isPresented: $isPickerPresented, selection: $selection)
                 }
                 
                 // Here could be present an Add condition that add to the list the condition
@@ -70,7 +72,7 @@ struct AddScheduleView: View {
                 // Conditions for now can be based on time and based on location
                 // Dynamically lists conditions and provides an option to add more
               
-                Section(header: Text("USAGE LIMIT"), footer: Text("Set daily limits for the blocked apps. Limits reset every day at midnight.")) {
+                Section(header: Text("Usage limit"), footer: Text("Set daily limits for the locked apps. Limits reset every day at midnight.")) {
                     Button(action: {
                         // Toggle the visibility of the DatePicker
                         self.showDatePicker.toggle()
@@ -90,6 +92,29 @@ struct AddScheduleView: View {
                             .onChange(of: selectedTime) {
                                 updateSetTimeText(with: selectedTime)
                             }
+                    }
+                }
+                
+                Section(header: Text("Usage fees"), footer: Text("Set fees to pay for each minute spent on the apps after the daily limit.")) {
+                    Button(action: {
+                        self.showMoneyPicker.toggle()
+                    }) {
+                        HStack {
+                            Text("Money")
+                                .foregroundColor(.black)
+                            Spacer()
+                            Text(setTimeText)
+                                .foregroundColor(!showDatePicker || setTimeText == "Set" ? .gray : .blue)
+                        }
+                    }
+                    
+                    if showMoneyPicker {
+                        MoneyPicker()
+//                        DatePicker("Select Time", selection: $selectedTime, displayedComponents: .hourAndMinute)
+//                            .datePickerStyle(WheelDatePickerStyle())
+//                            .onChange(of: selectedTime) {
+//                                updateSetTimeText(with: selectedTime)
+//                            }
                     }
                 }
                 
@@ -113,22 +138,6 @@ struct AddScheduleView: View {
                     AddConditionView() // Replace with your actual view that should appear in the sheet
                 }
                 
-               
-                // Here will be just the insertion of a number for the money to be calculated every tot
-                // seconds/multiples/minutes after the set limits => so a value for the money and a value
-                // for the period of time at which the money value will be deducted
-//                Section(header: Text("FINES")) {
-//                    HStack {
-//                        TextField("Money Amount", text: $selection.fineAmount)
-//                            .keyboardType(.decimalPad)
-//                        Spacer()
-//                        Picker("Time Period", selection: $selection.finePeriod) {
-//                            Text("Seconds").tag(FinePeriod.seconds)
-//                            Text("Minutes").tag(FinePeriod.minutes)
-//                        }
-//                    }
-//                }
-
             }
             .navigationTitle("New Schedule")
             .navigationBarTitleDisplayMode(.inline)
