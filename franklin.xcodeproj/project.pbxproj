@@ -28,6 +28,7 @@
 		21472AEF2BAE4446007382E0 /* franklinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21472AEE2BAE4446007382E0 /* franklinTests.swift */; };
 		21472AF92BAE4446007382E0 /* franklinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21472AF82BAE4446007382E0 /* franklinUITests.swift */; };
 		21472AFB2BAE4446007382E0 /* franklinUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21472AFA2BAE4446007382E0 /* franklinUITestsLaunchTests.swift */; };
+		215F8A722BD1935A00CFDC21 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 215F8A712BD1935A00CFDC21 /* MCEmojiPicker */; };
 		219FBB232BB1F5B000175404 /* UsageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219FBB222BB1F5B000175404 /* UsageManager.swift */; };
 		21A683162BAF419D00FF5E30 /* ScheduleTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A683152BAF419D00FF5E30 /* ScheduleTileView.swift */; };
 		21A683192BAF490400FF5E30 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 21A683172BAF490400FF5E30 /* Data.xcdatamodeld */; };
@@ -96,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				215F8A722BD1935A00CFDC21 /* MCEmojiPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +213,7 @@
 				21074E4E2BAE50F4001A3019 /* helpers */,
 				21074E4C2BAE5085001A3019 /* tests */,
 				21472AD62BAE4445007382E0 /* Products */,
+				215F8A702BD1935A00CFDC21 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -249,6 +252,13 @@
 			path = franklinUITests;
 			sourceTree = "<group>";
 		};
+		215F8A702BD1935A00CFDC21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		21A683122BAF414100FF5E30 /* models */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +285,9 @@
 			dependencies = (
 			);
 			name = franklin;
+			packageProductDependencies = (
+				215F8A712BD1935A00CFDC21 /* MCEmojiPicker */,
+			);
 			productName = franklin;
 			productReference = 21472AD52BAE4445007382E0 /* franklin.app */;
 			productType = "com.apple.product-type.application";
@@ -347,6 +360,9 @@
 				Base,
 			);
 			mainGroup = 21472ACC2BAE4445007382E0;
+			packageReferences = (
+				215F8A6F2BD1907A00CFDC21 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+			);
 			productRefGroup = 21472AD62BAE4445007382E0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -744,6 +760,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		215F8A6F2BD1907A00CFDC21 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		215F8A712BD1935A00CFDC21 /* MCEmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 215F8A6F2BD1907A00CFDC21 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
+			productName = MCEmojiPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		21A683172BAF490400FF5E30 /* Data.xcdatamodeld */ = {

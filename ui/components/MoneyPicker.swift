@@ -20,20 +20,34 @@ struct MoneyPicker: View {
                 .toggleStyle(FeeToogleStyle())
             }
 
-            HStack(spacing: 15) {
-                Spacer()
-//                Text("$")
-//                    .font(.largeTitle)
-                TextField("Amount", text: $amount)
-//                    .font(.largeTitle)
-                    .keyboardType(.decimalPad)
-                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                if (isOnce) {
-                    Text("/minute")
-//                        .font(.title2)
-                }
+            HStack {
+                        Image(systemName: "pencil.tip") // Icon on the left
+                            .foregroundColor(.gray)
+                        
+                        TextField("Enter amount", text: $amount) // Text field
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 200) // Adjust the width as necessary
+                        
+                        Text("/day") // Static text on the right
+                            .foregroundColor(.gray)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center) // Centering the HStack in the view
+            
+            
+//            HStack(spacing: 0) {
 //                Spacer()
-            }
+////                Text("$")
+////                    .font(.largeTitle)
+//                TextField("Amount", text: $amount)
+////                    .font(.largeTitle)
+//                    .keyboardType(.decimalPad)
+//                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                if (isOnce) {
+//                    Text("/minute")
+////                        .font(.title2)
+//                }
+////                Spacer()
+//            }
 //            .padding()
         }
 //        .padding()

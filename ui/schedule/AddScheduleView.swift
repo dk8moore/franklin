@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 import FamilyControls
+import MCEmojiPicker
 
 struct AddScheduleView: View {
     @State private var sceneName: String = ""
@@ -21,8 +22,27 @@ struct AddScheduleView: View {
     @State private var showMoneyPicker = false
     @State private var setTimeText = "Set"
     @State private var showingSheet = false;
-    @State private var feeAmount = ""
+    @State private var feeAmount: String = ""
+    @State private var feeCadency: String = "Once";
+    @State private var displayedCadency: String = "Once";
+    @State private var sort: String = "Boh"
+    @State private var selectedEmoji: String = "😊";
+    @State private var emojiPickerPresented = false;
     
+    struct CadencyItem {
+        let menuTitle: String
+        let displayTitle: String
+    }
+    
+    @State private var selectedCadency = 0
+    let cadencyItems: [CadencyItem] = [
+        CadencyItem(menuTitle: "Once", displayTitle: "Once"),
+        CadencyItem(menuTitle: "Every second", displayTitle: "per 1s"),
+        CadencyItem(menuTitle: "Every 10 seconds", displayTitle: "per 10s"),
+        CadencyItem(menuTitle: "Every 30 seconds", displayTitle: "per 30s"),
+        CadencyItem(menuTitle: "Every minute", displayTitle: "per 1 min"),
+        CadencyItem(menuTitle: "Every 5 minutes", displayTitle: "per 5 min")
+    ]
     
     @EnvironmentObject var stateManager: StateManager
     
@@ -42,10 +62,12 @@ struct AddScheduleView: View {
             Form {
                 Section(header: Text("NAME")) {
                     HStack {
-                        Image(systemName: "pencil.tip") // Example icon, adjust as needed
-                            .onTapGesture {
-                                // Present emoji/icon picker here
-                            }
+                        Button(selectedEmoji) {
+                            emojiPickerPresented.toggle()
+                        }.emojiPicker(
+                            isPresented: $emojiPickerPresented,
+                            selectedEmoji: $selectedEmoji
+                        )
                         TextField("Schedule name", text: $sceneName)
                     }
                 }
@@ -95,26 +117,29 @@ struct AddScheduleView: View {
                     }
                 }
                 
-                Section(header: Text("Usage fees"), footer: Text("Set fees to pay for each minute spent on the apps after the daily limit.")) {
-                    Button(action: {
-                        self.showMoneyPicker.toggle()
-                    }) {
-                        HStack {
-                            Text("Money")
-                                .foregroundColor(.black)
-                            Spacer()
-                            Text(setTimeText)
-                                .foregroundColor(!showDatePicker || setTimeText == "Set" ? .gray : .blue)
-                        }
-                    }
-                    
-                    if showMoneyPicker {
-                        MoneyPicker()
-//                        DatePicker("Select Time", selection: $selectedTime, displayedComponents: .hourAndMinute)
-//                            .datePickerStyle(WheelDatePickerStyle())
-//                            .onChange(of: selectedTime) {
-//                                updateSetTimeText(with: selectedTime)
-//                            }
+                Section(header: Text("Usage fees"), footer: Text("Set the fee to pay to unlock the apps after the daily limit.")) {
+                    HStack {
+                        Image(systemName: "dollarsign.square.fill")
+                            .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                            .font(.system(size: 24))// Example icon, adjust as needed
+                            .onTapGesture {
+                                // Present currency change menu
+                            }
+                        TextField("Amount", text: $feeAmount)
+                            .keyboardType(.decimalPad)
+                        Spacer()
+                        Menu {
+                            Picker("", selection: $selectedCadency) {
+                              ForEach(cadencyItems.indices, id: \.self) { index in
+                                Text(cadencyItems[index].menuTitle).tag(index)
+                              }
+                            }
+                          } label: {
+                              Text(cadencyItems[selectedCadency].displayTitle)
+                              Image(systemName: "chevron.up.chevron.down")
+                                  .font(.system(size: 13))
+                                  .padding(.leading, -4)
+                          }
                     }
                 }
                 
