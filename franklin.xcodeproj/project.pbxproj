@@ -29,6 +29,7 @@
 		21472AF92BAE4446007382E0 /* franklinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21472AF82BAE4446007382E0 /* franklinUITests.swift */; };
 		21472AFB2BAE4446007382E0 /* franklinUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21472AFA2BAE4446007382E0 /* franklinUITestsLaunchTests.swift */; };
 		215F8A722BD1935A00CFDC21 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 215F8A712BD1935A00CFDC21 /* MCEmojiPicker */; };
+		215F8A742BD2E62100CFDC21 /* ConditionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F8A732BD2E62100CFDC21 /* ConditionData.swift */; };
 		219FBB232BB1F5B000175404 /* UsageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219FBB222BB1F5B000175404 /* UsageManager.swift */; };
 		21A683162BAF419D00FF5E30 /* ScheduleTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A683152BAF419D00FF5E30 /* ScheduleTileView.swift */; };
 		21A683192BAF490400FF5E30 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 21A683172BAF490400FF5E30 /* Data.xcdatamodeld */; };
@@ -81,6 +82,7 @@
 		21472AF42BAE4446007382E0 /* franklinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = franklinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		21472AF82BAE4446007382E0 /* franklinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = franklinUITests.swift; sourceTree = "<group>"; };
 		21472AFA2BAE4446007382E0 /* franklinUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = franklinUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		215F8A732BD2E62100CFDC21 /* ConditionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionData.swift; sourceTree = "<group>"; };
 		219FBB1F2BB0D58C00175404 /* franklin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = franklin.entitlements; sourceTree = "<group>"; };
 		219FBB222BB1F5B000175404 /* UsageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageManager.swift; sourceTree = "<group>"; };
 		21A683152BAF419D00FF5E30 /* ScheduleTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTileView.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				21A6832C2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataClass.swift */,
 				21A6832D2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataProperties.swift */,
 				2128EF822BC076CD00C55779 /* LocationSearchViewModel.swift */,
+				215F8A732BD2E62100CFDC21 /* ConditionData.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				21472AE22BAE4445007382E0 /* Persistence.swift in Sources */,
 				21472ADB2BAE4445007382E0 /* ContentView.swift in Sources */,
 				21074E512BAE51BC001A3019 /* constants.swift in Sources */,
+				215F8A742BD2E62100CFDC21 /* ConditionData.swift in Sources */,
 				2128EF812BC0754100C55779 /* SearchFieldView.swift in Sources */,
 				21A6832E2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataClass.swift in Sources */,
 				21A6832F2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataProperties.swift in Sources */,

@@ -11,11 +11,20 @@ import SwiftUI
 import MapKit
 
 struct LocationConditionView: View {
+    @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = LocationSearchViewModel()
     @State private var selectedLocation = MKMapItem()
     @State private var showingMap = false
     @State private var circleScreenRadius: CGFloat = 100 // The constant screen radius of the circle
-
+    
+    var locationCondition: LocationConditionData?
+    var onSave: (any ConditionData) -> Void
+    
+    init(locationCondition: LocationConditionData? = nil, onSave: @escaping (any ConditionData) -> Void) {
+        self.onSave = onSave
+        self.locationCondition = locationCondition
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -27,6 +36,13 @@ struct LocationConditionView: View {
                 }
             }
         }
+        .navigationTitle("Location")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(trailing: Button("Save") {
+            let data = LocationConditionData(id: locationCondition?.id ?? UUID(), location: selectedLocation, radius: circleScreenRadius)
+            onSave(data)
+            presentationMode.wrappedValue.dismiss()
+        })
     }
 }
 
@@ -122,6 +138,6 @@ struct SearchResultList: View {
 
 struct LocationConditionView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationConditionView()
+        LocationConditionView(onSave: { _ in })
     }
 }

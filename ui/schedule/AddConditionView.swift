@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct AddConditionView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @State private var selectedTime: Date = Date()
-    @State private var selectedLocation: String = ""
-    @State private var selectedApp: String = ""
+    @Environment(\.presentationMode) var presentationMode    
+    var onAddCondition: (any ConditionData) -> Void
     
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("Set a Condition"), footer: Text("Have this Schedule turn on automatically at a set time or location.")) {
                     NavigationLink { 
-                        TimeConditionView()
+                        TimeConditionView(timeCondition: nil, onSave: onAddCondition)
                     } label: {
                             Label {
                                 VStack(alignment: .leading) {
                                     Text("Time")
-                                    Text("E.g. \"12:30–02:30\"")
+                                    Text("E.g. \"Weekend 12:30–02:30\"")
                                         .font(.system(size: 12))
                                         .foregroundColor(.gray)
                                 }
@@ -33,12 +31,12 @@ struct AddConditionView: View {
                     }
                     
                     NavigationLink {
-                        LocationConditionView()
+                        LocationConditionView(onSave: onAddCondition)
                     } label: {
                             Label {
                                 VStack(alignment: .leading) {
                                     Text("Location")
-                                    Text("E.g. \"When I arrive at Work\"")
+                                    Text("E.g. \"When I enter City Hall area\"")
                                         .font(.system(size: 12))
                                         .foregroundColor(.gray)
                                 }
@@ -73,6 +71,6 @@ struct CustomLabelStyle: LabelStyle {
 
 struct AddConditionView_Previews: PreviewProvider {
     static var previews: some View {
-        AddConditionView()
+        AddConditionView(onAddCondition: { _ in })
     }
 }

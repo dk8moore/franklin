@@ -8,21 +8,35 @@
 import SwiftUI
 
 struct TimeConditionView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var startTime = Date()
     @State private var endTime = Date()
-    @State private var selectedDays: [Bool] = Array(repeating: true, count: 7)
+    @State private var selectedDays: [Bool]
     
-    init() {
-        // Create a date representing today at 00:00
-        var calendar = Calendar.current
-        calendar.timeZone = TimeZone.current
-        var components = calendar.dateComponents([.year, .month, .day], from: Date())
-        components.hour = 9
-        components.minute = 0
-        let nineAMToday = calendar.date(from: components) ?? Date()
+    var timeCondition: TimeConditionData?
+    var onSave: (any ConditionData) -> Void
+    
+    init(timeCondition: TimeConditionData? = nil, onSave: @escaping (any ConditionData) -> Void) {
+        self.onSave = onSave
+        self.timeCondition = timeCondition
         
-        _startTime = State(initialValue: nineAMToday)
-        _endTime = State(initialValue: nineAMToday.addingTimeInterval(60*60*8))
+        if let data = timeCondition {
+            _startTime = State(initialValue: data.startTime)
+            _endTime = State(initialValue: data.endTime)
+            _selectedDays = State(initialValue: data.selectedDays)
+        } else {
+            // Default initialization for new conditions
+            var calendar = Calendar.current
+            calendar.timeZone = TimeZone.current
+            var components = calendar.dateComponents([.year, .month, .day], from: Date())
+            components.hour = 9
+            components.minute = 0
+            let nineAMToday = calendar.date(from: components) ?? Date()
+            
+            _startTime = State(initialValue: nineAMToday)
+            _endTime = State(initialValue: nineAMToday.addingTimeInterval(60*60*8))
+            _selectedDays = State(initialValue: Array(repeating: true, count: 7))
+        }
     }
 
     var body: some View {
@@ -40,8 +54,10 @@ struct TimeConditionView: View {
         }
         .navigationTitle("Time")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: Button("Done") {
-            // Handle the done action here
+        .navigationBarItems(trailing: Button("Save") {
+            let data = TimeConditionData(id: timeCondition?.id ?? UUID(), startTime: startTime, endTime: endTime, selectedDays: selectedDays, selectedDaysDescription: selectedDaysDescription)
+            onSave(data)
+            presentationMode.wrappedValue.dismiss()
         })
     }
     
@@ -102,6 +118,6 @@ extension TimeConditionView {
 
 struct TimeConditionView_Previews: PreviewProvider {
     static var previews: some View {
-        TimeConditionView()
+        TimeConditionView(onSave: { _ in })
     }
 }
