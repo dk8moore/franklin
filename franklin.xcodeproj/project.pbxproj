@@ -36,6 +36,11 @@
 		21A6831B2BAF49C500FF5E30 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6831A2BAF49C500FF5E30 /* ScheduleManager.swift */; };
 		21A6832E2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6832C2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataClass.swift */; };
 		21A6832F2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6832D2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataProperties.swift */; };
+		21A90B9B2BD407A100689204 /* FontAwesome in Frameworks */ = {isa = PBXBuildFile; productRef = 21A90B9A2BD407A100689204 /* FontAwesome */; };
+		21A90B9D2BD407A100689204 /* tools in Frameworks */ = {isa = PBXBuildFile; productRef = 21A90B9C2BD407A100689204 /* tools */; };
+		21A90BA12BD40E4D00689204 /* Font Awesome 5 Free-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21A90B9E2BD40E4D00689204 /* Font Awesome 5 Free-Solid-900.otf */; };
+		21A90BA22BD40E4D00689204 /* Font Awesome 5 Brands-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21A90B9F2BD40E4D00689204 /* Font Awesome 5 Brands-Regular-400.otf */; };
+		21A90BA32BD40E4D00689204 /* Font Awesome 5 Free-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21A90BA02BD40E4D00689204 /* Font Awesome 5 Free-Regular-400.otf */; };
 		21E719D22BB7312600EFC732 /* TimeConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E719D12BB7312600EFC732 /* TimeConditionView.swift */; };
 		21E719D42BB7313100EFC732 /* LocationConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E719D32BB7313100EFC732 /* LocationConditionView.swift */; };
 /* End PBXBuildFile section */
@@ -90,6 +95,9 @@
 		21A6831A2BAF49C500FF5E30 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		21A6832C2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		21A6832D2BAF4F0300FF5E30 /* ScheduleEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScheduleEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		21A90B9E2BD40E4D00689204 /* Font Awesome 5 Free-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Solid-900.otf"; sourceTree = "<group>"; };
+		21A90B9F2BD40E4D00689204 /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
+		21A90BA02BD40E4D00689204 /* Font Awesome 5 Free-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Regular-400.otf"; sourceTree = "<group>"; };
 		21E719D12BB7312600EFC732 /* TimeConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConditionView.swift; sourceTree = "<group>"; };
 		21E719D32BB7313100EFC732 /* LocationConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationConditionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,7 +107,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A90B9D2BD407A100689204 /* tools in Frameworks */,
 				215F8A722BD1935A00CFDC21 /* MCEmojiPicker in Frameworks */,
+				21A90B9B2BD407A100689204 /* FontAwesome in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +168,9 @@
 		21074E4D2BAE50B4001A3019 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				21A90B9F2BD40E4D00689204 /* Font Awesome 5 Brands-Regular-400.otf */,
+				21A90BA02BD40E4D00689204 /* Font Awesome 5 Free-Regular-400.otf */,
+				21A90B9E2BD40E4D00689204 /* Font Awesome 5 Free-Solid-900.otf */,
 				21472ADC2BAE4445007382E0 /* Assets.xcassets */,
 				21472ADE2BAE4445007382E0 /* Preview Content */,
 			);
@@ -290,6 +303,8 @@
 			name = franklin;
 			packageProductDependencies = (
 				215F8A712BD1935A00CFDC21 /* MCEmojiPicker */,
+				21A90B9A2BD407A100689204 /* FontAwesome */,
+				21A90B9C2BD407A100689204 /* tools */,
 			);
 			productName = franklin;
 			productReference = 21472AD52BAE4445007382E0 /* franklin.app */;
@@ -365,6 +380,7 @@
 			mainGroup = 21472ACC2BAE4445007382E0;
 			packageReferences = (
 				215F8A6F2BD1907A00CFDC21 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+				21A90B992BD407A100689204 /* XCRemoteSwiftPackageReference "FontAwesome" */,
 			);
 			productRefGroup = 21472AD62BAE4445007382E0 /* Products */;
 			projectDirPath = "";
@@ -382,6 +398,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A90BA12BD40E4D00689204 /* Font Awesome 5 Free-Solid-900.otf in Resources */,
+				21A90BA22BD40E4D00689204 /* Font Awesome 5 Brands-Regular-400.otf in Resources */,
+				21A90BA32BD40E4D00689204 /* Font Awesome 5 Free-Regular-400.otf in Resources */,
 				21472AE02BAE4445007382E0 /* Preview Assets.xcassets in Resources */,
 				21472ADD2BAE4445007382E0 /* Assets.xcassets in Resources */,
 			);
@@ -774,6 +793,14 @@
 				minimumVersion = 1.2.3;
 			};
 		};
+		21A90B992BD407A100689204 /* XCRemoteSwiftPackageReference "FontAwesome" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/thii/FontAwesome.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -781,6 +808,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 215F8A6F2BD1907A00CFDC21 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
 			productName = MCEmojiPicker;
+		};
+		21A90B9A2BD407A100689204 /* FontAwesome */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21A90B992BD407A100689204 /* XCRemoteSwiftPackageReference "FontAwesome" */;
+			productName = FontAwesome;
+		};
+		21A90B9C2BD407A100689204 /* tools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21A90B992BD407A100689204 /* XCRemoteSwiftPackageReference "FontAwesome" */;
+			productName = tools;
 		};
 /* End XCSwiftPackageProductDependency section */
 

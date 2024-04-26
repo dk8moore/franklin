@@ -30,7 +30,7 @@ struct TimeConditionData: ConditionData {
 struct LocationConditionData: ConditionData {
     var id: UUID
     var location: MKMapItem
-    var radius: CGFloat
+    var radius: Double
 
     var description: String {
         return "Location: \(location.placemark.title ?? "Posto strano")"

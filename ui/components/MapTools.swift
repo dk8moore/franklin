@@ -5,97 +5,146 @@
 //  Created by Denis Ronchese on 11/04/24.
 //
 
-import UIKit
+import SwiftUI
 import MapKit
+import FontAwesome
 
-func iconForMapItem(_ mapItem: MKMapItem) -> String {
+enum IconType {
+    case sfSymbol(name: String)
+    case faIcon(name: FontAwesome)
+
+    func image(forSize size: CGSize, color: UIColor) -> UIImage {
+        switch self {
+        case .sfSymbol(let name):
+            if let image = UIImage(systemName: name, withConfiguration: UIImage.SymbolConfiguration(pointSize: size.width, weight: .regular, scale: .default)) {
+                return image.withTintColor(color, renderingMode: .alwaysTemplate)
+            } else {
+                return UIImage()
+            }
+        case .faIcon(let name):
+            // FontAwesome icons handle their own coloring through the fontAwesomeIcon method.
+            return UIImage.fontAwesomeIcon(name: name, style: .solid, textColor: color, size: size)
+        }
+    }
+}
+
+struct IconDetails {
+    var iconType: IconType
+    var backgroundColor: UIColor
+}
+
+struct IconView: View {
+    let iconDetails: IconDetails
+    var color: Color = .white
+    var iconSize: CGFloat = 17    // This controls the size of the icon inside the circle
+    var circleSize: CGFloat = 30  // This controls the size of the circle
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(Color(iconDetails.backgroundColor))
+                .frame(width: circleSize, height: circleSize)
+            Image(uiImage: iconDetails.iconType.image(forSize: CGSize(width: iconSize, height: iconSize), color: UIColor(color)))
+                .resizable()
+                .scaledToFit()
+                .frame(width: iconSize, height: iconSize)
+        }
+        .foregroundColor(color) // This sets the color of the SF Symbols
+    }
+}
+
+
+func iconForMapItem(_ mapItem: MKMapItem) -> IconDetails {
+    let defaultIcon = IconDetails(iconType: .sfSymbol(name: "mappin"), backgroundColor: .red)
+
     guard let category = mapItem.pointOfInterestCategory else {
-        return "mappin.circle.fill"
+        return defaultIcon
     }
     
     switch category {
         case .airport:
-            return "airplane.circle.fill"
-        case .amusementPark: // NOT CORRECT => PANORAMIC WHEEL
-            return "face.smiling.fill"
-        case .aquarium: // NOT CORRECT => DOLPHIN
-            return "drop.circle.fill"
-        case .atm: // NOT CORRECT => CREDIT CARD ENTERING THE LID
-            return "creditcard.circle.fill"
-        case .bakery: // NOT CORRECT => CROISSANT
-            return "leaf.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "airplane"), backgroundColor: .systemBlue)
+//        case .amusementPark:
+//            return IconDetails(iconType: .faIcon(name: .ferrisWheel), backgroundColor: .purple)  // Panoramic wheel
+        case .aquarium:
+        return IconDetails(iconType: .faIcon(name: .fish), backgroundColor: UIColor(red: 255/255, green: 111/255, blue: 174/255, alpha: 1.0))  // Dolphin
+//        case .atm:
+//            return IconDetails(iconType: .faIcon(name: .atm), backgroundColor: .gray)  // ATM with card slot
+        case .bakery:
+            return IconDetails(iconType: .faIcon(name: .breadSlice), backgroundColor: UIColor(red: 255/255, green: 143/255, blue: 32/255, alpha: 1.0))  // Croissant
         case .bank:
-            return "building.columns.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "building.columns.fill"), backgroundColor: UIColor(red: 162/255, green: 161/255, blue: 158/255, alpha: 1.0))
         case .beach:
-            return "sun.max.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .umbrellaBeach), backgroundColor: UIColor(red: 0/255, green: 192/255, blue: 255/255, alpha: 1.0))
         case .brewery:
-            return "cup.and.saucer.fill"
+            return IconDetails(iconType: .faIcon(name: .beer), backgroundColor: UIColor(red: 255/255, green: 143/255, blue: 32/255, alpha: 1.0))
         case .cafe:
-            return "cup.and.saucer.fill"
+            return IconDetails(iconType: .faIcon(name: .coffee), backgroundColor: UIColor(red: 255/255, green: 143/255, blue: 32/255, alpha: 1.0))
         case .campground:
-            return "leaf.arrow.circlepath.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .campground), backgroundColor: UIColor(red: 33/255, green: 184/255, blue: 2/255, alpha: 1.0))
         case .carRental:
-            return "car.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "car.2.fill"), backgroundColor: UIColor(red: 162/255, green: 161/255, blue: 158/255, alpha: 1.0))
         case .evCharger:
-            return "bolt.car.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "ev.charger.fill"), backgroundColor: UIColor(red: 0/255, green: 207/255, blue: 107/255, alpha: 1.0))
         case .fireStation:
-            return "flame.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .fireExtinguisher), backgroundColor: .red)
         case .fitnessCenter:
-            return "figure.walk.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .dumbbell), backgroundColor: UIColor(red: 0/255, green: 192/255, blue: 255/255, alpha: 1.0))
         case .foodMarket:
-            return "cart.fill"
+            return IconDetails(iconType: .faIcon(name: .shoppingCart), backgroundColor: UIColor(red: 255/255, green: 176/255, blue: 2/255, alpha: 1.0))
         case .gasStation:
-            return "fuelpump.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "fuelpump.fill"), backgroundColor: UIColor(red: 42/255, green: 138/255, blue: 239/255, alpha: 1.0))
         case .hospital:
-            return "cross.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "cross.fill"), backgroundColor: .red)
         case .hotel:
-            return "bed.double.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .bed), backgroundColor: UIColor(red: 168/255, green: 123/255, blue: 242/255, alpha: 1.0))
         case .laundry:
-            return "bubble.right.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .soap), backgroundColor: UIColor(red: 255/255, green: 176/255, blue: 2/255, alpha: 1.0))
         case .library:
-            return "books.vertical.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .book), backgroundColor: UIColor(red: 176/255, green: 108/255, blue: 57/255, alpha: 1.0))
         case .marina:
-            return "sailboat.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "sailboat.fill"), backgroundColor: UIColor(red: 0/255, green: 192/255, blue: 255/255, alpha: 1.0))
         case .movieTheater:
-            return "film.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .film), backgroundColor: UIColor(red: 255/255, green: 111/255, blue: 174/255, alpha: 1.0))
         case .museum:
-            return "paintpalette.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .landmark), backgroundColor: UIColor(red: 255/255, green: 111/255, blue: 174/255, alpha: 1.0))
         case .nationalPark:
-            return "leaf.arrow.circlepath.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .tree), backgroundColor: UIColor(red: 33/255, green: 184/255, blue: 2/255, alpha: 1.0))
         case .nightlife:
-            return "moon.stars.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "music.note"), backgroundColor: UIColor(red: 255/255, green: 111/255, blue: 174/255, alpha: 1.0))
         case .park:
-            return "parkingsign.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "tree.fill"), backgroundColor: UIColor(red: 33/255, green: 184/255, blue: 2/255, alpha: 1.0))
         case .parking:
-            return "car.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "parkingsign"), backgroundColor: UIColor(red: 42/255, green: 138/255, blue: 239/255, alpha: 1.0))
         case .pharmacy:
-            return "cross.vial.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "pills.fill"), backgroundColor: .red)
         case .police:
-            return "shield.lefthalf.fill"
+            return IconDetails(iconType: .sfSymbol(name: "staroflife.shield"), backgroundColor: UIColor(red: 162/255, green: 161/255, blue: 158/255, alpha: 1.0))
         case .postOffice:
-            return "envelope.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "envelope.fill"), backgroundColor: UIColor(red: 162/255, green: 161/255, blue: 158/255, alpha: 1.0))
         case .publicTransport:
-            return "bus.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .subway), backgroundColor: UIColor(red: 42/255, green: 138/255, blue: 239/255, alpha: 1.0))
         case .restaurant:
-            return "fork.knife.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "fork.knife"), backgroundColor: UIColor(red: 255/255, green: 143/255, blue: 32/255, alpha: 1.0))
         case .restroom:
-            return "figure.stand.line.dotted.figure.stand.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .restroom), backgroundColor: UIColor(red: 168/255, green: 123/255, blue: 242/255, alpha: 1.0))  // Figure stand, restroom related
         case .school:
-            return "graduationcap.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .school), backgroundColor: UIColor(red: 176/255, green: 108/255, blue: 57/255, alpha: 1.0))
         case .stadium:
-            return "sportscourt.fill"
+            return IconDetails(iconType: .sfSymbol(name: "sportscourt.fill"), backgroundColor: UIColor(red: 33/255, green: 184/255, blue: 2/255, alpha: 1.0))  // Sports related
         case .store:
-            return "bag.fill"
+            return IconDetails(iconType: .faIcon(name: .store), backgroundColor: UIColor(red: 255/255, green: 176/255, blue: 2/255, alpha: 1.0))
         case .theater:
-            return "film.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .theaterMasks), backgroundColor: UIColor(red: 255/255, green: 111/255, blue: 174/255, alpha: 1.0))
         case .university:
-            return "graduationcap.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "graduationcap.fill"), backgroundColor: UIColor(red: 176/255, green: 108/255, blue: 57/255, alpha: 1.0))
         case .winery:
-            return "leaf.circle.fill"
+            return IconDetails(iconType: .faIcon(name: .wineGlass), backgroundColor: UIColor(red: 255/255, green: 111/255, blue: 174/255, alpha: 1.0))  // Vine leaf, wine related
         case .zoo:
-            return "hare.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "pawprint.fill"), backgroundColor: UIColor(red: 255/255, green: 111/255, blue: 174/255, alpha: 1.0))  // Animal, zoo related
         default:
-            return "mappin.circle.fill"
+            return IconDetails(iconType: .sfSymbol(name: "mappin"), backgroundColor: .gray)
     }
 }
+
 

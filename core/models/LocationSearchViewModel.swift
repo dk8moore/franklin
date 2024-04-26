@@ -19,29 +19,58 @@ class LocationSearchViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     private var locationManager = LocationManager()
     
-    init() {
+    init(defaultLocation: MKMapItem? = nil) {
+        if let location = defaultLocation {
+            selectedPlace = location
+            searchResults.append(location)
+        }
+        
         $searchText
             .removeDuplicates()
-            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .debounce(for: 0.1, scheduler: RunLoop.main)
             .sink { [weak self] searchText in
                 self?.performSearch(query: searchText)
             }
             .store(in: &cancellables)
     }
     
+    func setSelectedPlace(_ place: MKMapItem) {
+        self.selectedPlace = place
+    }
+    
     private func performSearch(query: String) {
         guard !query.isEmpty else {
-            self.searchResults = []
+            searchResults = selectedPlace != nil ? [selectedPlace!]: []
             return
         }
         
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = query
-        request.region = region
+//        request.region = region
 
         MKLocalSearch(request: request).start { [weak self] response, _ in
-            self?.searchResults = response?.mapItems ?? []
+            guard let self = self else { return }
+            var newResults = response?.mapItems ?? []
+            if let selected = self.selectedPlace, !newResults.contains(where: { $0.isEquivalent(to: selected) }) {
+                newResults.insert(selected, at: 0)
+            }
+            self.searchResults = newResults
         }
     }
 }
+
+extension MKMapItem {
+    func isEquivalent(to other: MKMapItem?) -> Bool {
+        guard let other = other else { return false }
+        return placemark.coordinate.latitude == other.placemark.coordinate.latitude &&
+               placemark.coordinate.longitude == other.placemark.coordinate.longitude
+    }
+}
+
+extension MKMapItem {
+    var isInvalid: Bool {
+        return placemark.location == nil
+    }
+}
+
 

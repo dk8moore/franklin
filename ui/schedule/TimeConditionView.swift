@@ -58,7 +58,8 @@ struct TimeConditionView: View {
             let data = TimeConditionData(id: timeCondition?.id ?? UUID(), startTime: startTime, endTime: endTime, selectedDays: selectedDays, selectedDaysDescription: selectedDaysDescription)
             onSave(data)
             presentationMode.wrappedValue.dismiss()
-        })
+        }
+        .disabled(isConditionUnchanged()))
     }
     
     func dayTitle(_ index: Int) -> String {
@@ -115,6 +116,14 @@ extension TimeConditionView {
     }
 }
 
+extension TimeConditionView {
+    private func isConditionUnchanged() -> Bool {
+        guard let original = timeCondition else { return false }
+        let areTimesSame = original.startTime == startTime && original.endTime == endTime
+        let areDaysSame = original.selectedDays == selectedDays
+        return areTimesSame && areDaysSame
+    }
+}
 
 struct TimeConditionView_Previews: PreviewProvider {
     static var previews: some View {

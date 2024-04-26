@@ -1,6 +1,15 @@
 {
-  "originHash" : "595d1748b1c3db11b79ffd9f75f2eb43bd054d2196cd9f3ba2c5add22061bf3c",
+  "originHash" : "c8b2ef3ba161c135baf52789cf0a5e06fe671ef05bcb357ad7b78513bf462c0e",
   "pins" : [
+    {
+      "identity" : "fontawesome.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/thii/FontAwesome.swift",
+      "state" : {
+        "revision" : "07883a32d49dfc7bdedbeea115067b53dfbeeb43",
+        "version" : "1.9.1"
+      }
+    },
     {
       "identity" : "mcemojipicker",
       "kind" : "remoteSourceControl",
