@@ -10,6 +10,14 @@
 import SwiftUI
 import MapKit
 
+#if canImport(UIKit)
+extension View {
+    func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+#endif
+
 struct LocationConditionView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var searchModel = LocationSearchViewModel()
@@ -42,10 +50,15 @@ struct LocationConditionView: View {
             VStack {
                 SearchFieldView(searchText: $searchModel.searchText, placeholderText: "Search or Enter Address")
                 SearchResultList(searchResults: searchModel.searchResults, selectedResult: $selectedLocation, showingMap: $showingMap, viewModel: searchModel)
+                    .gesture(DragGesture().onChanged { _ in self.dismissKeyboard() })
                 if showingMap {
                     MapView(location: $selectedLocation, innerCircleRadius: $circleScreenRadius)
                         .frame(height: UIScreen.main.bounds.height / 2.5)
+                        .ignoresSafeArea(.keyboard)
                 }
+            }
+            .onTapGesture {
+                self.dismissKeyboard()
             }
         }
         .navigationTitle("Location")

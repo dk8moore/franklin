@@ -12,8 +12,7 @@ import FamilyControls
 struct franklinApp: App {
     let persistenceController = PersistenceController.shared
     
-    // Add an authorization state property
-    @State private var isAuthorizedForFamilyControls = false
+    @AppStorage("isAuthorizedForFamilyControls") private var isAuthorizedForFamilyControls = false
 
     // Initialize your app
     init() {
@@ -37,11 +36,17 @@ struct franklinApp: App {
             do {
                 let authorizationCenter = AuthorizationCenter.shared
                 try await authorizationCenter.requestAuthorization(for: .individual)
-                // If successful, set the authorization state to true
-                isAuthorizedForFamilyControls = true
+                // If successful, update the authorization state to true on the main thread
+                DispatchQueue.main.async {
+                    self.isAuthorizedForFamilyControls = true
+                }
             } catch {
-                print("Authorization failed with error: \(error)")
+                DispatchQueue.main.async {
+                    // Optionally handle UI update for error case
+                    print("Authorization failed with error: \(error)")
+                }
             }
         }
     }
 }
+

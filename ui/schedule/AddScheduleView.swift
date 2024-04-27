@@ -20,7 +20,7 @@ struct AddScheduleView: View {
     @State private var scheduleName: String = ""
     @State private var appSelection = FamilyActivitySelection()
     @State private var usageLimit = Date()
-    @State private var displayedUsageLimit = "Set"
+    @State private var displayedUsageLimit = "No time"
     @State private var feeAmount: String = ""
     @State private var conditions: [any ConditionData] = []
     
@@ -69,10 +69,6 @@ struct AddScheduleView: View {
                 }
             )
         }
-    }
-        
-    private func deleteCondition(at offsets: IndexSet) {
-        conditions.remove(atOffsets: offsets)
     }
 }
 
@@ -128,11 +124,11 @@ struct UsageLimitSectionView: View {
                 self.showUsageLimitPicker.toggle()
             }) {
                 HStack {
-                    Text("Time")
+                    Text("Set time")
                         .foregroundColor(.black)
                     Spacer()
                     Text(displayedUsageLimit)
-                        .foregroundColor(!showUsageLimitPicker || displayedUsageLimit == "Set" ? .gray : .blue)
+                        .foregroundColor(!showUsageLimitPicker || displayedUsageLimit == "No time" ? .gray : .blue)
                 }
             }
             
@@ -161,7 +157,7 @@ struct UsageLimitSectionView: View {
             timeComponents.append("\(minute) min")
         }
         
-        displayedUsageLimit = timeComponents.isEmpty ? "Set" : timeComponents.joined(separator: ", ")
+        displayedUsageLimit = timeComponents.isEmpty ? "No time" : timeComponents.joined(separator: ", ")
     }
 }
 
